@@ -15,6 +15,13 @@ public class ExecutorController {
 
     private static final Logger logger = LoggerFactory.getLogger(ExecutorController.class);
 
+
+    /**
+     * Handles the execution of a task with the provided payload.
+     *
+     * @param payload the payload containing the task details
+     * @return a Mono containing the response
+     */
     @PostMapping("/execute")
     public Mono<?> execute(@RequestBody Map<String, Object> payload) {
         MDC.put("requestId", String.valueOf(System.currentTimeMillis()));
