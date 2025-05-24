@@ -31,14 +31,14 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Create Pull Request
-          id: create_pr
-          uses: peter-evans/create-pull-request@v6
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            commit-message: "Merge develop into main"
-            title: "Merge develop into main"
-            body: "This PR merges the latest changes from the develop branch into main."
-            base: main
-            branch: auto-merge-develop-to-main
-            committer: GitHub Actions <actions@github.com>
-            author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        id: create_pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Merge develop into main"
+          title: "Merge develop into main"
+          body: "This PR merges the latest changes from the develop branch into main."
+          base: main
+          branch: auto-merge-develop-to-main
+          committer: GitHub Actions <actions@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
