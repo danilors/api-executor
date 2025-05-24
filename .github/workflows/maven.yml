@@ -41,7 +41,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Merge develop into main"
           title: "Merge develop into main"
-          body: "This PR merges the latest changes from the \`develop\` branch into \`main\`."
+          body: "This PR merges the latest changes from the develop branch into main."
           base: main
           branch: auto-merge-develop-to-main
           committer: GitHub Actions <actions@github.com>
