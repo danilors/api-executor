@@ -43,9 +43,3 @@ jobs:
           committer: GitHub Actions <actions@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           always-create: true
-
-      - name: Check for PR URL
-              if: ${{ steps.create_pr.outputs.pull-request-url }}
-              run: |
-                echo "Pull Request criada: ${{ steps.create_pr.outputs.pull-request-url }}"
-                echo "Pull Request número: ${{ steps.create_pr.outputs.pull-request-number }}"
