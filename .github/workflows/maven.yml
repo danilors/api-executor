@@ -35,24 +35,17 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Create Pull Request
-        id: create_pr # Adiciona um ID para referenciar a saída desta etapa
+        id: create_pr
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # Usa o token padrão do GitHub Actions
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Merge develop into main"
           title: "Merge develop into main"
-          body: "This PR merges the latest changes from the `develop` branch into `main`."
-          base: main # O branch de destino do PR
-          head: develop # O branch de origem do PR
-          branch: auto-merge-develop-to-main # Nome do branch que a action pode criar temporariamente, se necessário
-          # Necessário para que a action não falhe se um PR já existir
+          body: "This PR merges the latest changes from the \`develop\` branch into \`main\`."
+          base: main
+          branch: auto-merge-develop-to-main
           committer: GitHub Actions <actions@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          # Se você quiser que o PR seja automaticamente mesclado quando todos os checks passarem (cuidado com isso!)
-          # merge-method: squash
-          # assignees: seu-usuario-github # Opcional: atribui o PR a um usuário
-          # reviewers: revisor-1,revisor-2 # Opcional: adiciona revisores
-          # draft: true # Opcional: cria um PR como rascunho
 
       - name: Check for PR URL
         if: steps.create_pr.outputs.pull-request-url
