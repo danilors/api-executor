@@ -1,0 +1,48 @@
+{
+  "data": [
+    {
+      "key": "getUser",
+      "url": "https://api.example.com/users/{id}",
+      "method": "GET",
+      "body": {},
+      "headers": {
+        "Authorization": "Bearer <token>",
+        "Content-Type": "application/json"
+      },
+      "queryParams": {
+        "includeDetails": "true"
+      },
+      "params": {
+        "id": "123"
+      }
+    },
+    {
+      "key": "createUser",
+      "url": "https://api.example.com/users",
+      "method": "POST",
+      "body": {
+        "name": "John Doe",
+        "email": "john.doe@example.com"
+      },
+      "headers": {
+        "Authorization": "Bearer <token>",
+        "Content-Type": "application/json"
+      },
+      "queryParams": {},
+      "params": {}
+    },
+    {
+      "key": "deleteUser",
+      "url": "https://api.example.com/users/{id}",
+      "method": "DELETE",
+      "body": {},
+      "headers": {
+        "Authorization": "Bearer <token>"
+      },
+      "queryParams": {},
+      "params": {
+        "id": "123"
+      }
+    }
+  ]
+}
