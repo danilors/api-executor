@@ -1,22 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN" monitorInterval="30">
-    <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [ReqID: %X{requestId}, UserID: %X{userId}] - %msg%n"/>
-        </Console>
-        <Console name="DatadogJsonAppender" target="SYSTEM_OUT">
-            <JsonTemplateLayout eventTemplateUri="classpath:Log4j-Datadog-Template.json"/>
-        </Console>
-    </Appenders>
-    <Loggers>
-        <Root level="info">
-            <AppenderRef ref="Console"/>
-            <AppenderRef ref="DatadogJsonAppender"/>
-        </Root>
-        <Logger name="br.com.executor.api_executor" level="debug" additivity="false">
-            <AppenderRef ref="Console"/>
-            <AppenderRef ref="DatadogJsonAppender"/>
-        </Logger>
-    </Loggers>
-</Configuration>
+<configuration>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %X{userId} %X{transactionId} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="Console" />
+    </root>
+</configuration>
