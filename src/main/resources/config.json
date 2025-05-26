@@ -6,7 +6,8 @@
   "services": [
     {
       "key": "getUser",
-      "url": "https://api.example.com/users/{id}",
+      "baseUrl": "https://api.example.com",
+      "uri": "/users/{id}",
       "method": "GET",
       "body": {},
       "headers": {
@@ -24,7 +25,8 @@
     },
     {
       "key": "createUser",
-      "url": "https://api.example.com/users",
+      "baseUrl": "https://api.example.com",
+      "uri": "/users",
       "method": "POST",
       "body": {
         "name": "John Doe",
@@ -41,7 +43,8 @@
     },
     {
       "key": "deleteUser",
-      "url": "https://api.example.com/users/{id}",
+      "baseUrl": "https://api.example.com",
+      "uri": "/users/{id}",
       "method": "DELETE",
       "body": {},
       "headers": {
