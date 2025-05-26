@@ -1,5 +1,9 @@
 {
-  "data": [
+  "defaultData": {
+    "timeout": 5000,
+    "retries": 3
+  },
+  "services": [
     {
       "key": "getUser",
       "url": "https://api.example.com/users/{id}",
@@ -14,7 +18,9 @@
       },
       "params": {
         "id": "123"
-      }
+      },
+      "timeout": 5000,
+      "retries": 3
     },
     {
       "key": "createUser",
@@ -29,7 +35,9 @@
         "Content-Type": "application/json"
       },
       "queryParams": {},
-      "params": {}
+      "params": {},
+      "timeout": 5000,
+      "retries": 3
     },
     {
       "key": "deleteUser",
@@ -42,7 +50,9 @@
       "queryParams": {},
       "params": {
         "id": "123"
-      }
+      },
+      "timeout": 5000,
+      "retries": 3
     }
   ]
 }
