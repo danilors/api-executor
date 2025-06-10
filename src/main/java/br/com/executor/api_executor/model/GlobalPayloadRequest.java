@@ -1,4 +1,6 @@
 package br.com.executor.api_executor.model;
 
-public record GlobalPayloadRequest() {
+import java.util.Map;
+
+public record GlobalPayloadRequest(Map<String, Object> payload) {
 }
