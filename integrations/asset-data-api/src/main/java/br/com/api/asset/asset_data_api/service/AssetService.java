@@ -24,22 +24,6 @@ public class AssetService {
                 .orElseThrow(() -> new RuntimeException("AssetEntity not found with id: " + id));
     }
 
-    public AssetEntity createAsset(AssetEntity assetEntity) {
-        return assetRepository.save(assetEntity);
-    }
 
-    public AssetEntity updateAsset(String id, AssetEntity assetEntity) {
-        if (!assetRepository.existsById(id)) {
-            throw new RuntimeException("AssetEntity not found with id: " + id);
-        }
-        assetEntity = assetEntity.withId(id); // Assuming a method to set the ID
-        return assetRepository.save(assetEntity);
-    }
 
-    public void deleteAsset(String id) {
-        if (!assetRepository.existsById(id)) {
-            throw new RuntimeException("AssetEntity not found with id: " + id);
-        }
-        assetRepository.deleteById(id);
-    }
 }

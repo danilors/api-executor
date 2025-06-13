@@ -30,22 +30,5 @@ public class AssetController {
         logger.info("Received request to get AssetEntity with id: {} and requestId: {}", id, requestId);
         return assetService.getAssetById(id);
     }
-
-    @PostMapping
-    public AssetEntity createAsset(@RequestBody AssetEntity assetEntity) {
-        logger.info("Received request to create a new AssetEntity");
-        return assetService.createAsset(assetEntity);
-    }
-
-    @PutMapping("/{id}")
-    public AssetEntity updateAsset(@PathVariable String id, @RequestBody AssetEntity assetEntity) {
-        logger.info("Received request to update AssetEntity with id: {}", id);
-        return assetService.updateAsset(id, assetEntity);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteAsset(@PathVariable String id) {
-        logger.info("Received request to delete AssetEntity with id: {}", id);
-        assetService.deleteAsset(id);
-    }
+ 
 }
