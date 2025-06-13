@@ -8,7 +8,7 @@ The Personal Data API is a Spring Boot application designed to manage personal d
 
 - **CRUD Operations**: Create, Read, Update, and Delete personal data records.
 - **Data Persistence**: Uses JPA for data persistence with a relational database.
-- **Sample Data**: Pre-populated with sample personal data for testing and demonstration purposes.
+- **Sample Data**: Pre-populated with sample pnersonal data for testing and demonstration purposes.
 
 ## Getting Started
 
