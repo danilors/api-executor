@@ -58,36 +58,50 @@ public class HttpClientExecutor implements ClientExecutor {
         Map<String, String> errors = new HashMap<>();
 
         Flux.fromIterable(services)
-                .flatMap(service -> executeService(service, configData, results, errors))
+                .flatMap(service -> {
+                    executeService(service, configData, results, errors);
+                    return Mono.empty();
+                })
                 .collectList()
                 .block();
 
         return Optional.of(new GlobalPayloadResponse(results, errors));
     }
 
-private Mono<Map<String, Object>> executeService(ConfigData.Service service, ConfigData configData,
-                                                 Map<String, Object> results, Map<String, String> errors) {
-    WebClient webClient = webClientBuilder.baseUrl(service.baseUrl()).build();
+    private void executeService(ConfigData.Service service, ConfigData configData,
+                                                       Map<String, Object> results, Map<String, String> errors) {;
+        WebClient webClient = webClientBuilder.baseUrl(service.baseUrl()).build();
 
-    WebClient.RequestHeadersSpec<?> requestSpec = buildRequestSpec(webClient, service);
+        WebClient.RequestHeadersSpec<?> requestSpec = buildRequestSpec(webClient, service);
 
-    int timeout = service.timeout() > 0 ? service.timeout() : configData.defaultData().timeout();
-    int retries = service.retries() > 0 ? service.retries() : configData.defaultData().retries();
+        Duration timeout = getTimeout(service, configData);
+        int retries = getRetries(service, configData);
 
-    return requestSpec.retrieve()
-            .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
-            .timeout(Duration.ofMillis(timeout))
-            .retry(retries)
-            .doOnNext(response -> {
-                logger.info("Service {} executed successfully", service.key());
-                results.put(service.key(), response);
-            })
-            .onErrorResume(error -> {
-                logger.error("Error executing service {}: {}", service.key(), error.getMessage());
-                errors.put(service.key(), error.getMessage());
-                return Mono.empty();
-            });
-}
+          requestSpec.retrieve()
+                .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {
+                })
+                .timeout(timeout)
+                .retry(retries)
+                .doOnNext(response -> {
+                    logger.info("Service {} executed successfully", service.key());
+                    results.put(service.key(), response);
+                })
+                .onErrorResume(error -> {
+                    logger.warn("Error executing service {}: {}", service.key(), error.getMessage());
+                    errors.put(service.key(), error.getMessage());
+                    return Mono.empty();
+                });
+    }
+
+    private Duration getTimeout(ConfigData.Service service, ConfigData configData) {
+        int timeout = service.timeout() > 0 ? service.timeout() : configData.defaultData().timeout();
+        return Duration.ofMillis(timeout);
+    }
+
+    private int getRetries(ConfigData.Service service, ConfigData configData) {
+        return service.retries() > 0 ? service.retries() : configData.defaultData().retries();
+    }
+
     private WebClient.RequestHeadersSpec<?> buildRequestSpec(WebClient webClient, ConfigData.Service service) {
         WebClient.RequestHeadersSpec<?> requestSpec = webClient.method(HttpMethod.valueOf(service.method()))
                 .uri(uriBuilder -> uriBuilder
